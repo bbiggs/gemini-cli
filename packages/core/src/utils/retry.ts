@@ -38,7 +38,6 @@ function defaultShouldRetry(error: Error | unknown): boolean {
   }
   if (error instanceof Error && error.message) {
     if (error.message.includes('429')) return true;
-    if (error.message.match(/5\d{2}/)) return true;
   }
   return false;
 }
@@ -255,11 +254,6 @@ function logRetryAttempt(
     if (error.message.includes('429')) {
       console.warn(
         `Attempt ${attempt} failed with 429 error (no Retry-After header). Retrying with backoff...`,
-        error,
-      );
-    } else if (error.message.match(/5\d{2}/)) {
-      console.error(
-        `Attempt ${attempt} failed with 5xx error. Retrying with backoff...`,
         error,
       );
     } else {
