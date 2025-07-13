@@ -1165,13 +1165,7 @@ export function useTextBuffer({
     }): void => {
       const { sequence: input } = key;
 
-      if (
-        key.name === 'return' ||
-        input === '\r' ||
-        input === '\n' ||
-        input === '\\\r' // VSCode terminal represents shift + enter this way
-      )
-        newline();
+      if (key.name === 'return' || input === '\r' || input === '\n') newline();
       else if (key.name === 'left' && !key.meta && !key.ctrl) move('left');
       else if (key.ctrl && key.name === 'b') move('left');
       else if (key.name === 'right' && !key.meta && !key.ctrl) move('right');
@@ -1188,19 +1182,11 @@ export function useTextBuffer({
       else if (key.name === 'end') move('end');
       else if (key.ctrl && key.name === 'e') move('end');
       else if (key.ctrl && key.name === 'w') deleteWordLeft();
-      else if (
-        (key.meta || key.ctrl) &&
-        (key.name === 'backspace' || input === '\x7f')
-      )
+      else if ((key.meta || key.ctrl) && key.name === 'backspace')
         deleteWordLeft();
       else if ((key.meta || key.ctrl) && key.name === 'delete')
         deleteWordRight();
-      else if (
-        key.name === 'backspace' ||
-        input === '\x7f' ||
-        (key.ctrl && key.name === 'h')
-      )
-        backspace();
+      else if (key.name === 'backspace') backspace();
       else if (key.name === 'delete' || (key.ctrl && key.name === 'd')) del();
       else if (input && !key.ctrl && !key.meta) {
         insert(input);
