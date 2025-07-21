@@ -127,6 +127,7 @@ export type FlashFallbackHandler = (
 ) => Promise<boolean | string | null>;
 
 export interface ConfigParameters {
+  apiBaseUrl?: string;
   sessionId: string;
   embeddingModel?: string;
   sandbox?: SandboxConfig;
@@ -175,6 +176,7 @@ export class Config {
   private readonly sessionId: string;
   private contentGeneratorConfig!: ContentGeneratorConfig;
   private readonly embeddingModel: string;
+  private readonly apiBaseUrl?: string;
   private readonly sandbox: SandboxConfig | undefined;
   private readonly targetDir: string;
   private readonly debugMode: boolean;
@@ -228,6 +230,7 @@ export class Config {
     this.sessionId = params.sessionId;
     this.embeddingModel =
       params.embeddingModel ?? DEFAULT_GEMINI_EMBEDDING_MODEL;
+    this.apiBaseUrl = params.apiBaseUrl;
     this.sandbox = params.sandbox;
     this.targetDir = path.resolve(params.targetDir);
     this.debugMode = params.debugMode;
@@ -319,6 +322,10 @@ export class Config {
 
   getContentGeneratorConfig(): ContentGeneratorConfig {
     return this.contentGeneratorConfig;
+  }
+
+  getApiBaseUrl(): string | undefined {
+    return this.apiBaseUrl;
   }
 
   getModel(): string {

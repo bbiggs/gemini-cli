@@ -56,6 +56,7 @@ export interface AccessibilitySettings {
 }
 
 export interface Settings {
+  apiBaseUrl?: string;
   theme?: string;
   customThemes?: Record<string, CustomTheme>;
   selectedAuthType?: AuthType;

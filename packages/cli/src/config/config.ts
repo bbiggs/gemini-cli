@@ -441,6 +441,7 @@ export async function loadCliConfig(
     noBrowser: !!process.env.NO_BROWSER,
     summarizeToolOutput: settings.summarizeToolOutput,
     ideMode,
+    apiBaseUrl: process.env.GEMINI_API_BASE_URL ?? settings.apiBaseUrl,
   });
 }
 

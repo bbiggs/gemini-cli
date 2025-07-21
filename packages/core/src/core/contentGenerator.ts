@@ -51,6 +51,7 @@ export type ContentGeneratorConfig = {
   vertexai?: boolean;
   authType?: AuthType | undefined;
   proxy?: string | undefined;
+  baseUrl?: string | undefined;
 };
 
 export function createContentGeneratorConfig(
@@ -69,6 +70,7 @@ export function createContentGeneratorConfig(
     model: effectiveModel,
     authType,
     proxy: config?.getProxy(),
+    baseUrl: config?.getApiBaseUrl(),
   };
 
   // If we are using Google auth or we are in Cloud Shell, there is nothing else to validate for now
@@ -114,6 +116,7 @@ export async function createContentGenerator(
     headers: {
       'User-Agent': `GeminiCLI/${version} (${process.platform}; ${process.arch})`,
     },
+    baseUrl: config.baseUrl,
   };
   if (
     config.authType === AuthType.LOGIN_WITH_GOOGLE ||

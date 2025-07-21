@@ -69,6 +69,7 @@ describe('createContentGeneratorConfig', () => {
     setModel: vi.fn(),
     flashFallbackHandler: vi.fn(),
     getProxy: vi.fn(),
+    getApiBaseUrl: vi.fn(),
   } as unknown as Config;
 
   beforeEach(() => {
